@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SPEC - Поддержка</title>
+    <link rel="stylesheet" href="../portal-styles.css">
+    <link rel="stylesheet" href="support-styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../portal.html">AI-SPEC</a>
+            </div>
+            <div class="nav-links">
+                <a href="projects.html">ПРОЕКТЫ</a>
+                <a href="chat.html">ЧАТ</a>
+                <a href="documents.html">ДОКУМЕНТЫ</a>
+                <a href="support.html">ПОДДЕРЖКА</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="support-container">
+        <div class="support-sidebar">
+            <div class="support-info">
+                <h3>Техническая поддержка</h3>
+                <p>Время работы: 24/7</p>
+                <p>Среднее время ответа: 5 минут</p>
+            </div>
+            <div class="faq-section">
+                <h3>Частые вопросы</h3>
+                <div class="faq-item" onclick="showFaqAnswer(this)">
+                    <div class="faq-question">Как сменить пароль?</div>
+                    <div class="faq-answer">
+                        Перейдите в настройки профиля и выберите опцию "Сменить пароль"
+                    </div>
+                </div>
+                <div class="faq-item" onclick="showFaqAnswer(this)">
+                    <div class="faq-question">Как создать новый проект?</div>
+                    <div class="faq-answer">
+                        В разделе "Проекты" нажмите кнопку "Создать новый проект"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-chat">
+            <div class="chat-header">
+                <h2>Чат с поддержкой</h2>
+                <span id="supportStatus" class="status-online">Онлайн</span>
+            </div>
+            
+            <div class="chat-messages" id="supportMessages">
+                <div class="message support">
+                    <div class="message-content">
+                        Здравствуйте! Как мы можем вам помочь?
+                    </div>
+                    <div class="message-time">10:00</div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <textarea 
+                    placeholder="Опишите вашу проблему..." 
+                    id="messageInput"
+                    onkeypress="handleKeyPress(event)"></textarea>
+                <button onclick="sendSupportMessage()">Отправить</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showFaqAnswer(element) {
+            const answer = element.querySelector('.faq-answer');
+            const allAnswers = document.querySelectorAll('.faq-answer');
+            
+            // Скрываем все ответы
+            allAnswers.forEach(a => {
+                if (a !== answer) {
+                    a.style.maxHeight = null;
+                }
+            });
+
+            // Показываем/скрываем выбранный ответ
+            if (answer.style.maxHeight) {
+                answer.style.maxHeight = null;
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        }
+
+        function sendSupportMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                const messagesDiv = document.getElementById('supportMessages');
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                // Добавляем сообщение пользователя
+                messagesDiv.innerHTML += `
+                    <div class="message user">
+                        <div class="message-content">${text}</div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                `;
+
+                // Имитация ответа поддержки
+                setTimeout(() => {
+                    messagesDiv.innerHTML += `
+                        <div class="message support">
+                            <div class="message-content">Спасибо за обращение! Мы обрабатываем ваш запрос.</div>
+                            <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                        </div>
+                    `;
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }, 1000);
+
+                input.value = '';
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendSupportMessage();
+            }
+        }
+    </script>
+</body>
+</html> 

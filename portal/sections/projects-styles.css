@@ -1,0 +1,247 @@
+.projects-container {
+    padding: 30px;
+    background-color: #f5f5f5;
+    min-height: calc(100vh - 60px);
+}
+
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-left h1 {
+    margin-bottom: 15px;
+    color: #2B4380;
+}
+
+.project-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.project-filters button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    color: #666;
+}
+
+.project-filters button.active {
+    background-color: #2B4380;
+    color: white;
+}
+
+.new-project-btn {
+    padding: 10px 20px;
+    background-color: #2B4380;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.new-project-btn:hover {
+    background-color: #3A5795;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.project-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.project-status.active {
+    background-color: #E3F2FD;
+    color: #1976D2;
+}
+
+.project-status.pending {
+    background-color: #FFF3E0;
+    color: #F57C00;
+}
+
+.project-status.completed {
+    background-color: #E8F5E9;
+    color: #388E3C;
+}
+
+.project-description {
+    color: #666;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.project-info {
+    margin: 15px 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.project-progress {
+    margin: 15px 0;
+}
+
+.progress-bar {
+    height: 6px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #2B4380;
+    border-radius: 3px;
+}
+
+.project-team {
+    display: flex;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.team-member {
+    width: 30px;
+    height: 30px;
+    background-color: #2B4380;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+}
+
+.team-member.more {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.project-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.project-actions button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.project-actions button:first-child {
+    background-color: #2B4380;
+    color: white;
+    flex: 1;
+}
+
+.project-actions button.secondary {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #2B4380;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-group select[multiple] {
+    height: 100px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+    background-color: #f0f0f0;
+}
+
+.modal-buttons button:last-child {
+    background-color: #2B4380;
+    color: white;
+} 

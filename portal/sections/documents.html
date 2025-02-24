@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SPEC - Документы</title>
+    <link rel="stylesheet" href="../portal-styles.css">
+    <link rel="stylesheet" href="documents-styles.css">
+    <!-- Добавляем иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../portal.html">AI-SPEC</a>
+            </div>
+            <div class="nav-links">
+                <a href="projects.html">ПРОЕКТЫ</a>
+                <a href="chat.html">ЧАТ</a>
+                <a href="documents.html">ДОКУМЕНТЫ</a>
+                <a href="support.html">ПОДДЕРЖКА</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="documents-container">
+        <div class="documents-sidebar">
+            <div class="search-bar">
+                <input type="text" id="searchDocs" placeholder="Поиск документов..." onkeyup="searchDocuments()">
+            </div>
+            <div class="folder-tree">
+                <div class="folder" onclick="toggleFolder(this)">
+                    <i class="fas fa-folder"></i> Проектная документация
+                    <div class="subfolder">
+                        <div class="file" onclick="openDocument('tech_spec')">
+                            <i class="fas fa-file-pdf"></i> Техническое задание.pdf
+                        </div>
+                        <div class="file" onclick="openDocument('requirements')">
+                            <i class="fas fa-file-word"></i> Требования.docx
+                        </div>
+                    </div>
+                </div>
+                <div class="folder" onclick="toggleFolder(this)">
+                    <i class="fas fa-folder"></i> Договоры
+                    <div class="subfolder">
+                        <div class="file" onclick="openDocument('contract1')">
+                            <i class="fas fa-file-pdf"></i> Договор №1.pdf
+                        </div>
+                        <div class="file" onclick="openDocument('contract2')">
+                            <i class="fas fa-file-pdf"></i> Договор №2.pdf
+                        </div>
+                    </div>
+                </div>
+                <div class="folder" onclick="toggleFolder(this)">
+                    <i class="fas fa-folder"></i> Отчеты
+                    <div class="subfolder">
+                        <div class="file" onclick="openDocument('report1')">
+                            <i class="fas fa-file-excel"></i> Отчет за Q1.xlsx
+                        </div>
+                        <div class="file" onclick="openDocument('report2')">
+                            <i class="fas fa-file-excel"></i> Отчет за Q2.xlsx
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="documents-main">
+            <div class="documents-header">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    Документы /
+                </div>
+                <div class="document-actions">
+                    <button onclick="uploadDocument()"><i class="fas fa-upload"></i> Загрузить</button>
+                    <button onclick="createFolder()"><i class="fas fa-folder-plus"></i> Новая папка</button>
+                </div>
+            </div>
+            
+            <div class="document-viewer" id="documentViewer">
+                <div class="empty-state">
+                    <i class="fas fa-file-alt"></i>
+                    <p>Выберите документ для просмотра</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно загрузки документа -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <h3>Загрузка документа</h3>
+            <input type="file" id="fileInput">
+            <div class="modal-buttons">
+                <button onclick="closeModal('uploadModal')">Отмена</button>
+                <button onclick="confirmUpload()">Загрузить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно создания папки -->
+    <div id="folderModal" class="modal">
+        <div class="modal-content">
+            <h3>Создание новой папки</h3>
+            <input type="text" placeholder="Название папки">
+            <div class="modal-buttons">
+                <button onclick="closeModal('folderModal')">Отмена</button>
+                <button onclick="confirmCreateFolder()">Создать</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFolder(element) {
+            const subfolder = element.querySelector('.subfolder');
+            const isOpen = subfolder.style.display === 'block';
+            subfolder.style.display = isOpen ? 'none' : 'block';
+            const icon = element.querySelector('.fa-folder');
+            icon.className = isOpen ? 'fas fa-folder' : 'fas fa-folder-open';
+        }
+
+        function openDocument(docId) {
+            const viewer = document.getElementById('documentViewer');
+            const breadcrumbs = document.getElementById('breadcrumbs');
+            
+            // Имитация загрузки документа
+            viewer.innerHTML = `
+                <div class="document-content">
+                    <h2>${docId}.pdf</h2>
+                    <div class="document-preview">
+                        <i class="fas fa-file-pdf"></i>
+                        <p>Документ загружен</p>
+                    </div>
+                </div>
+            `;
+            
+            // Обновление хлебных крошек
+            breadcrumbs.textContent = `Документы / ${docId}`;
+        }
+
+        function uploadDocument() {
+            document.getElementById('uploadModal').style.display = 'flex';
+        }
+
+        function createFolder() {
+            document.getElementById('folderModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function confirmUpload() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                alert('Файл успешно загружен!');
+                closeModal('uploadModal');
+            }
+        }
+
+        function confirmCreateFolder() {
+            alert('Папка создана!');
+            closeModal('folderModal');
+        }
+
+        function searchDocuments() {
+            const searchText = document.getElementById('searchDocs').value.toLowerCase();
+            const files = document.querySelectorAll('.file');
+            
+            files.forEach(file => {
+                const fileName = file.textContent.toLowerCase();
+                file.style.display = fileName.includes(searchText) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,271 @@
+:root {
+    --primary-color: #2B4380;
+    --secondary-color: #3A5795;
+    --text-color: #ffffff;
+    --accent-color: #4CAF50;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Header styles */
+header {
+    padding: 1rem 2rem;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 500;
+}
+
+/* Hero section */
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(rgba(43, 67, 128, 0.9), rgba(43, 67, 128, 0.9));
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.hero h2 {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    font-weight: normal;
+    color: #ffffff;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+.try-button {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.try-button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Services section */
+.services {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.services h2 {
+    margin-bottom: 3rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-item i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Callback section */
+.callback {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.callback form {
+    max-width: 500px;
+    margin: 2rem auto;
+    display: flex;
+    gap: 1rem;
+}
+
+.callback input {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.callback button {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Clients section */
+.clients {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.clients-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.client-logo {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 3rem 2rem;
+}
+
+.contacts {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contacts p {
+    margin: 1rem 0;
+    color: #ffffff;
+}
+
+.contacts i {
+    margin-right: 1rem;
+}
+
+.social-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.social-links a {
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .features {
+        flex-direction: column;
+    }
+    
+    .callback form {
+        flex-direction: column;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Иконки */
+.fas,
+.fab {
+    color: #ffffff;
+}
+
+/* Эффекты при наведении */
+.nav-links a:hover,
+.social-links a:hover {
+    color: #e6e6e6;
+}
+
+.try-button:hover,
+form button:hover {
+    background-color: #e6e6e6;
+}
+
+.corp-button {
+    display: none;
+} 

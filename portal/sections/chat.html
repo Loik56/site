@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SPEC - Чат</title>
+    <link rel="stylesheet" href="../portal-styles.css">
+    <link rel="stylesheet" href="chat-styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../portal.html">AI-SPEC</a>
+            </div>
+            <div class="nav-links">
+                <a href="projects.html">ПРОЕКТЫ</a>
+                <a href="chat.html">ЧАТ</a>
+                <a href="documents.html">ДОКУМЕНТЫ</a>
+                <a href="support.html">ПОДДЕРЖКА</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="chat-container">
+        <div class="chat-sidebar">
+            <div class="chat-search">
+                <input type="text" placeholder="Поиск чата..." id="chatSearch" onkeyup="searchChats()">
+            </div>
+            <div class="chat-list" id="chatList">
+                <div class="chat-item active" onclick="switchChat('Общий проект')">
+                    <div class="chat-avatar">ОП</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Общий проект</div>
+                        <div class="chat-last-message">Давайте обсудим новые задачи</div>
+                    </div>
+                </div>
+                <div class="chat-item" onclick="switchChat('Рабочая группа')">
+                    <div class="chat-avatar">РГ</div>
+                    <div class="chat-info">
+                        <div class="chat-name">Рабочая группа</div>
+                        <div class="chat-last-message">Встреча в 15:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-header">
+                <h2 id="currentChatName">Общий проект</h2>
+                <div class="chat-actions">
+                    <button onclick="toggleSearch()">Поиск</button>
+                    <button onclick="toggleSettings()">Настройки</button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <!-- Сообщения будут добавляться динамически -->
+            </div>
+
+            <div class="chat-input">
+                <input type="text" placeholder="Введите сообщение..." id="messageInput" onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Отправить</button>
+            </div>
+        </div>
+
+        <!-- Модальное окно поиска -->
+        <div id="searchModal" class="modal">
+            <div class="modal-content">
+                <h3>Поиск сообщений</h3>
+                <input type="text" placeholder="Введите текст для поиска...">
+                <button onclick="closeModal('searchModal')">Закрыть</button>
+            </div>
+        </div>
+
+        <!-- Модальное окно настроек -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <h3>Настройки чата</h3>
+                <div class="settings-option">
+                    <label>Уведомления</label>
+                    <input type="checkbox" checked>
+                </div>
+                <div class="settings-option">
+                    <label>Звук</label>
+                    <input type="checkbox" checked>
+                </div>
+                <button onclick="closeModal('settingsModal')">Сохранить</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Хранилище сообщений для разных чатов
+        const chatMessages = {
+            'Общий проект': [
+                { sender: 'Анна', text: 'Привет всем! Как продвигается проект?' },
+                { sender: 'Иван', text: 'Работаем по графику.' },
+                { sender: 'Мария', text: 'Нужно обсудить новые задачи.' }
+            ],
+            'Рабочая группа': [
+                { sender: 'Петр', text: 'Встреча сегодня в 15:00' },
+                { sender: 'Елена', text: 'Буду присутствовать' }
+            ]
+        };
+
+        // Переключение между чатами
+        function switchChat(chatName) {
+            // Обновляем заголовок
+            document.getElementById('currentChatName').textContent = chatName;
+            
+            // Обновляем активный класс
+            const chatItems = document.querySelectorAll('.chat-item');
+            chatItems.forEach(item => {
+                item.classList.remove('active');
+                if(item.querySelector('.chat-name').textContent === chatName) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Загружаем сообщения выбранного чата
+            displayMessages(chatName);
+        }
+
+        // Отображение сообщений
+        function displayMessages(chatName) {
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = '';
+            
+            chatMessages[chatName].forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `
+                    <strong>${msg.sender}:</strong>
+                    <span>${msg.text}</span>
+                `;
+                messagesDiv.appendChild(messageDiv);
+            });
+
+            // Прокрутка к последнему сообщению
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Отправка сообщения
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            
+            if(text) {
+                const currentChat = document.getElementById('currentChatName').textContent;
+                chatMessages[currentChat].push({
+                    sender: 'Вы',
+                    text: text
+                });
+                
+                displayMessages(currentChat);
+                input.value = '';
+            }
+        }
+
+        // Обработка нажатия Enter
+        function handleKeyPress(event) {
+            if(event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Поиск чатов
+        function searchChats() {
+            const searchText = document.getElementById('chatSearch').value.toLowerCase();
+            const chatItems = document.querySelectorAll('.chat-item');
+            
+            chatItems.forEach(item => {
+                const chatName = item.querySelector('.chat-name').textContent.toLowerCase();
+                if(chatName.includes(searchText)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Управление модальными окнами
+        function toggleSearch() {
+            document.getElementById('searchModal').style.display = 'flex';
+        }
+
+        function toggleSettings() {
+            document.getElementById('settingsModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Инициализация
+        displayMessages('Общий проект');
+    </script>
+</body>
+</html> 

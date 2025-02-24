@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SPEC - Планирование</title>
+    <link rel="stylesheet" href="../portal-styles.css">
+    <link rel="stylesheet" href="planning-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../portal.html">AI-SPEC</a>
+            </div>
+            <div class="nav-links">
+                <a href="projects.html">ПРОЕКТЫ</a>
+                <a href="chat.html">ЧАТ</a>
+                <a href="documents.html">ДОКУМЕНТЫ</a>
+                <a href="support.html">ПОДДЕРЖКА</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="planning-container">
+        <div class="planning-header">
+            <h1>Планирование</h1>
+            <button class="new-task-btn" onclick="showNewTaskModal()">
+                <i class="fas fa-plus"></i> Новая задача
+            </button>
+        </div>
+
+        <div class="calendar-section">
+            <div class="calendar-navigation">
+                <button class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                <h2>Февраль 2024</h2>
+                <button class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="calendar-grid">
+                <div class="calendar-days">
+                    <div>Пн</div>
+                    <div>Вт</div>
+                    <div>Ср</div>
+                    <div>Чт</div>
+                    <div>Пт</div>
+                    <div>Сб</div>
+                    <div>Вс</div>
+                </div>
+                <div class="calendar-dates" id="calendarDates">
+                    <!-- Даты будут добавлены через JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tasks-section">
+            <div class="date-tasks">
+                <h3>21 Февраля</h3>
+                <div class="task-list">
+                    <div class="task-item">
+                        <div class="task-time">09:00</div>
+                        <div class="task-content">
+                            <h4>Встреча с командой</h4>
+                            <p>Обсуждение текущих проектов</p>
+                            <div class="task-participants">
+                                <div class="participant" title="Иван Иванов">ИИ</div>
+                                <div class="participant" title="Петр Петров">ПП</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <div class="task-time">14:00</div>
+                        <div class="task-content">
+                            <h4>Презентация проекта</h4>
+                            <p>Демонстрация нового функционала</p>
+                            <div class="task-participants">
+                                <div class="participant" title="Иван Иванов">ИИ</div>
+                                <div class="participant" title="Мария Сидорова">МС</div>
+                                <div class="participant more">+2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно новой задачи -->
+    <div id="newTaskModal" class="modal">
+        <div class="modal-content">
+            <h2>Новая задача</h2>
+            <form id="newTaskForm">
+                <div class="form-group">
+                    <label>Название задачи</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Дата</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Время</label>
+                        <input type="time" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Участники</label>
+                    <select multiple>
+                        <option>Иван Иванов</option>
+                        <option>Петр Петров</option>
+                        <option>Мария Сидорова</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeModal('newTaskModal')">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Генерация календаря
+        function generateCalendar() {
+            const datesContainer = document.getElementById('calendarDates');
+            const totalDays = 35; // 5 недель
+            const currentDate = 21; // Текущая дата
+
+            for (let i = 1; i <= totalDays; i++) {
+                const dateDiv = document.createElement('div');
+                dateDiv.textContent = i;
+                if (i === currentDate) {
+                    dateDiv.classList.add('current-date');
+                }
+                dateDiv.onclick = () => selectDate(i);
+                datesContainer.appendChild(dateDiv);
+            }
+        }
+
+        function selectDate(date) {
+            const dates = document.querySelectorAll('.calendar-dates div');
+            dates.forEach(d => d.classList.remove('selected'));
+            dates[date - 1].classList.add('selected');
+        }
+
+        function showNewTaskModal() {
+            document.getElementById('newTaskModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Инициализация календаря при загрузке страницы
+        document.addEventListener('DOMContentLoaded', generateCalendar);
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Обработка формы новой задачи
+        document.getElementById('newTaskForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Задача создана!');
+            closeModal('newTaskModal');
+        }
+    </script>
+</body>
+</html> 

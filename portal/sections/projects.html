@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SPEC - Проекты</title>
+    <link rel="stylesheet" href="../portal-styles.css">
+    <link rel="stylesheet" href="projects-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../portal.html">AI-SPEC</a>
+            </div>
+            <div class="nav-links">
+                <a href="projects.html">ПРОЕКТЫ</a>
+                <a href="chat.html">ЧАТ</a>
+                <a href="documents.html">ДОКУМЕНТЫ</a>
+                <a href="support.html">ПОДДЕРЖКА</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="projects-container">
+        <div class="projects-header">
+            <div class="header-left">
+                <h1>Проекты</h1>
+                <div class="project-filters">
+                    <button class="active">Все</button>
+                    <button>Активные</button>
+                    <button>Завершенные</button>
+                </div>
+            </div>
+            <button class="new-project-btn" onclick="showNewProjectModal()">
+                <i class="fas fa-plus"></i> Новый проект
+            </button>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Проект 1 -->
+            <div class="project-card">
+                <div class="project-status active">Активный</div>
+                <h3>Разработка чат-бота</h3>
+                <p class="project-description">
+                    Создание AI-ассистента для автоматизации поддержки клиентов
+                </p>
+                <div class="project-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>Дедлайн: 01.06.2024</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>Команда: 5 человек</span>
+                    </div>
+                </div>
+                <div class="project-progress">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%"></div>
+                    </div>
+                    <span>75% выполнено</span>
+                </div>
+                <div class="project-team">
+                    <div class="team-member" title="Анна К.">АК</div>
+                    <div class="team-member" title="Иван П.">ИП</div>
+                    <div class="team-member" title="Мария С.">МС</div>
+                    <div class="team-member more">+2</div>
+                </div>
+                <div class="project-actions">
+                    <button onclick="openProject(1)">Открыть</button>
+                    <button class="secondary" onclick="showProjectSettings(1)">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Проект 2 -->
+            <div class="project-card">
+                <div class="project-status pending">В ожидании</div>
+                <h3>Система аналитики</h3>
+                <p class="project-description">
+                    Разработка системы анализа данных для бизнес-процессов
+                </p>
+                <div class="project-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>Дедлайн: 15.07.2024</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>Команда: 3 человека</span>
+                    </div>
+                </div>
+                <div class="project-progress">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 30%"></div>
+                    </div>
+                    <span>30% выполнено</span>
+                </div>
+                <div class="project-team">
+                    <div class="team-member" title="Петр В.">ПВ</div>
+                    <div class="team-member" title="Елена М.">ЕМ</div>
+                    <div class="team-member" title="Сергей К.">СК</div>
+                </div>
+                <div class="project-actions">
+                    <button onclick="openProject(2)">Открыть</button>
+                    <button class="secondary" onclick="showProjectSettings(2)">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Проект 3 -->
+            <div class="project-card">
+                <div class="project-status completed">Завершен</div>
+                <h3>Модуль безопасности</h3>
+                <p class="project-description">
+                    Внедрение системы безопасности на основе AI
+                </p>
+                <div class="project-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>Завершен: 15.02.2024</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span>Команда: 4 человека</span>
+                    </div>
+                </div>
+                <div class="project-progress">
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                    <span>Проект завершен</span>
+                </div>
+                <div class="project-team">
+                    <div class="team-member" title="Дмитрий Л.">ДЛ</div>
+                    <div class="team-member" title="Ольга К.">ОК</div>
+                    <div class="team-member more">+2</div>
+                </div>
+                <div class="project-actions">
+                    <button onclick="openProject(3)">Открыть</button>
+                    <button class="secondary" onclick="showProjectSettings(3)">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно нового проекта -->
+    <div id="newProjectModal" class="modal">
+        <div class="modal-content">
+            <h2>Создание нового проекта</h2>
+            <form id="newProjectForm">
+                <div class="form-group">
+                    <label>Название проекта</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Дедлайн</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Команда</label>
+                    <select multiple>
+                        <option>Анна К.</option>
+                        <option>Иван П.</option>
+                        <option>Мария С.</option>
+                        <option>Петр В.</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeModal('newProjectModal')">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showNewProjectModal() {
+            document.getElementById('newProjectModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function openProject(id) {
+            alert(`Открываем проект ${id}`);
+        }
+
+        function showProjectSettings(id) {
+            alert(`Настройки проекта ${id}`);
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Обработка формы нового проекта
+        document.getElementById('newProjectForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Проект создан!');
+            closeModal('newProjectModal');
+        }
+    </script>
+</body>
+</html> 

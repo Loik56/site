@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SPEC - Корпоративный портал</title>
+    <link rel="stylesheet" href="portal-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="portal.html">AI-SPEC</a>
+            </div>
+            <div class="nav-links">
+                <a href="sections/projects.html">ПРОЕКТЫ</a>
+                <a href="sections/chat.html">ЧАТ</a>
+                <a href="sections/documents.html">ДОКУМЕНТЫ</a>
+                <a href="sections/support.html">ПОДДЕРЖКА</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="portal-main">
+        <h1>КОРПОРАТИВНЫЙ ПОРТАЛ</h1>
+        
+        <!-- Форма логина (скрыта после авторизации) -->
+        <div class="login-form" id="loginForm">
+            <input type="text" placeholder="Login" id="loginInput">
+            <input type="password" placeholder="Password" id="passwordInput">
+            <button onclick="checkLogin()">Вход</button>
+        </div>
+
+        <!-- Контент после авторизации -->
+        <div class="authorized-content" id="authorizedContent" style="display: none;">
+            <!-- Профиль пользователя -->
+            <div class="user-profile">
+                <div class="profile-image">
+                    <img src="assets/profile.jpg" alt="Фото профиля">
+                </div>
+                <div class="profile-info">
+                    <h2>ИВАН ИВАНОВ</h2>
+                    <p>ДИРЕКТОР ДЕПАРТАМЕНТА КОМАНДИРОВОК</p>
+                </div>
+            </div>
+
+            <!-- Календарь -->
+            <div class="calendar-nav">
+                <button>20</button>
+                <button class="active">21</button>
+                <button>22</button>
+                <h3>21 ФЕВРАЛЯ</h3>
+            </div>
+
+            <!-- Основные разделы -->
+            <div class="portal-sections">
+                <div class="section-row">
+                    <a href="sections/projects.html" class="portal-section full-width">
+                        <h3>УПРАВЛЕНИЕ ЗАДАЧАМИ</h3>
+                    </a>
+                </div>
+                <div class="section-row">
+                    <a href="sections/documents.html" class="portal-section">
+                        <h3>ДОКУМЕНТООБОРОТ</h3>
+                    </a>
+                    <a href="sections/planning.html" class="portal-section">
+                        <h3>ПЛАНИРОВАНИЕ</h3>
+                    </a>
+                </div>
+                <div class="section-row">
+                    <a href="sections/chat.html" class="portal-section">
+                        <h3>СООБЩЕНИЯ</h3>
+                    </a>
+                    <a href="sections/support.html" class="portal-section">
+                        <h3>ПОДДЕРЖКА</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">AI-SPEC</div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="copyright">AI-SPEC © 2025</div>
+    </footer>
+
+    <script>
+        function checkLogin() {
+            const login = document.getElementById('loginInput').value;
+            const password = document.getElementById('passwordInput').value;
+
+            if (login === 'admin' && password === 'admin') {
+                localStorage.setItem('isAuthorized', 'true');
+                showAuthorizedContent();
+            } else {
+                alert("Неверный логин или пароль!");
+            }
+        }
+
+        function showAuthorizedContent() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('authorizedContent').style.display = 'block';
+            document.querySelector('.nav-links').style.display = 'flex';
+        }
+
+        // Проверяем авторизацию при загрузке страницы
+        if (localStorage.getItem('isAuthorized') === 'true') {
+            showAuthorizedContent();
+        } else {
+            document.querySelector('.nav-links').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
